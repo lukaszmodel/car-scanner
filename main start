@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoScan AI | Next-Gen Diagnostics</title>
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --dark: #121212;
+            --card: #1e1e1e;
+            --text: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            padding: 2rem;
+            background: linear-gradient(180deg, #1a1a1a 0%, #121212 100%);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        /* Scanner Section */
+        .scanner-box {
+            background: var(--card);
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 20px;
+            border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scan-line {
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+            box-shadow: 0 0 15px var(--primary);
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            animation: scan 2s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+
+        button {
+            background: var(--primary);
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Results & Deals Section */
+        .hidden { display: none; }
+        
+        .section-title {
+            color: var(--primary);
+            margin-top: 40px;
+        }
+
+        .deals-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .deal-card {
+            background: #252525;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: left;
+            border-left: 4px solid var(--primary);
+        }
+
+        .price { color: #00ff88; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AutoScan <span style="color:var(--primary)">AI</span></h1>
+    <p>Upload a photo or enter VIN for an instant AI health check.</p>
+</header>
+
+<div class="container">
+    <div class="scanner-box" id="scanner">
+        <div class="scan-line" id="line"></div>
+        <div id="upload-ui">
+            <p>Ready to diagnose?</p>
+            <input type="file" id="carPhoto" style="margin-bottom: 20px;"><br>
+            <button onclick="startScan()">RUN AI DIAGNOSTIC</button>
+        </div>
+        <div id="results" class="hidden">
+            <h2 style="color: #ff4d4d;">Issues Found:</h2>
+            <p id="diagnostic-text">Analyzing sensor data...</p>
+        </div>
+    </div>
+
+    <div id="deals-section" class="hidden">
+        <h2 class="section-title">Best Deals on Parts</h2>
+        <div class="deals-grid">
+            <div class="deal-card">
+                <h4>Premium Brake Pads</h4>
+                <p>Location: AutoZone Express</p>
+                <p class="price">$45.99 (Save 20%)</p>
+            </div>
+            <div class="deal-card">
+                <h4>Full Synthetic Oil Kit</h4>
+                <p>Location: PartsGiant.com</p>
+                <p class="price">$32.50 (Best Deal)</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Nearby Repair Shops</h2>
+        <div class="deals-grid">
+            <div class="deal-card">
+                <h4>Precision Auto Care</h4>
+                <p>Rating: ⭐⭐⭐⭐⭐</p>
+                <p>Specialty: Engine & Transmission</p>
+            </div>
+            <div class="deal-card">
+                <h4>QuickFix Garage</h4>
+                <p>Rating: ⭐⭐⭐⭐</p>
+                <p>Specialty: General Maintenance</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function startScan() {
+        const uploadUI = document.getElementById('upload-ui');
+        const line = document.getElementById('line');
+        const results = document.getElementById('results');
+        const deals = document.getElementById('deals-section');
+        const diagText = document.getElementById('diagnostic-text');
+
+        // Step 1: Show scanning animation
+        uploadUI.classList.add('hidden');
+        line.style.display = 'block';
+
+        // Step 2: Simulate "AI" thinking
+        setTimeout(() => {
+            line.style.display = 'none';
+            results.classList.remove('hidden');
+            deals.classList.remove('hidden');
+
+            const issues = [
+                "P0300: Random Engine Misfire detected in Cylinder 3.",
+                "Brake pad wear detected at 15%. Replacement recommended soon.",
+                "O2 Sensor showing irregular voltage readings.",
+                "Transmission fluid temperature higher than normal."
+            ];
+            
+            // Pick a random issue
+            diagText.innerText = issues[Math.floor(Math.random() * issues.length)];
+        }, 3000); // 3-second "scan"
+    }
+</script>
+
+</body>
+</html>
